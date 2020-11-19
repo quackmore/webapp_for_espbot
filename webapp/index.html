@@ -37,7 +37,7 @@
     <div class="border-right side  bg-sidebar" id="sidebar-wrapper">
       <div class="sidebar-heading">APP NAME </div>
       <div class="list-group list-group-flush border-right">
-        <a href="index.html" class="list-group-item list-group-item-action bg-sidebar">App dashboard</a>
+        <a href="javascript:goto('home')" class="list-group-item list-group-item-action bg-sidebar">App dashboard</a>
         <a href="#" class="list-group-item list-group-item-action bg-sidebar" id="app_settings">App settings</a>
         <a href="javascript:goto('events_journal')" class="list-group-item list-group-item-action bg-sidebar">Events
           journal</a>
@@ -86,10 +86,7 @@
         <!-- Custom page content including reference to custom scripts -->
         <div id="page-content">
           <script>
-            $('#awaiting').modal('show');
-            $(function () {
-              $("#page-content").load("home.html");
-            });
+            goto('home');
           </script>
         </div>
         <!-- End of custom page content -->

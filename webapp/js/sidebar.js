@@ -31,5 +31,5 @@ function ajax_error(xhr, status) {
 
 function goto(page) {
   $('#awaiting').modal('show');
-  $("#page-content").load(page + ".html");
+  $("#page-content").load("html/" + page + ".html");
 }
