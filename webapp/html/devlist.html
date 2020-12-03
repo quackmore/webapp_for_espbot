@@ -1,0 +1,55 @@
+<div>
+  <p></p>
+</div>
+<div class="card border-info">
+  <div class="card-body">
+    <div class="card-title">
+      <div class="row no-gutters">
+        <h5 class="card-title my-auto"><i class="fa fa-list"></i> Device list</h5>
+        <div class="btn-toolbar my-auto ml-auto" role="toolbar" aria-label="Toolbar with button groups">
+          <button class="btn my-auto ml-auto" id="dev_add">
+            <i class="fa fa-plus-square-o"></i>
+          </button>
+          <button class="btn my-auto ml-auto" id="dev_refresh">
+            <i class="fa fa-refresh"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="table-responsive text-nowrap table-sm small table-bordered">
+      <table class="table table-striped" id="device_list">
+      </table>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="deviceModal" tabindex="-1" role="dialog" aria-labelledby="deviceModalTitle"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deviceModalTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group row no-gutters">
+          <label for="dev_name" class="col-form-label col-4 my-auto">Name</label>
+          <input type="text" class="form-control-sm col-8 ml-auto my-auto" id="dev_name">
+        </div>
+        <div class="form-group row no-gutters">
+          <label for="dev_name" class="col-form-label col-4 my-auto">Ip address</label>
+          <input type="text" class="form-control-sm col-8 ml-auto my-auto" id="dev_ip">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary" id="deviceModalReset">Reset</button>
+        <button type="button" class="btn btn-primary" id="deviceModalSave">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End of Modal -->
+<script src="/js/devlist.js"></script>
