@@ -122,7 +122,7 @@ function query_err(xhr, status) {
       $('#awaiting').modal('hide');
     }
     else {
-      alert("Request error!");
+      alert("Device unreachable");
       $('#awaiting').modal('hide');
     }
   }
