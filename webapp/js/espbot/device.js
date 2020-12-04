@@ -9,7 +9,7 @@ $(document).ready(function () {
             esp_get_datetime().then(function () {
               esp_get_ota().then(function () {
                 esp_get_diag().then(function () {
-                  hide_spinner();
+                  hide_spinner(500);
                   setTimeout(function () {
                     periodically_update_datetime();
                   }, 10000);
@@ -84,7 +84,9 @@ $('#info_save').on('click', function () {
     success: function () {
       alert("Device name saved.");
       esp_get_info()
-        .then(hide_spinner(500));
+        .then(function () {
+          hide_spinner(500)
+        });
     },
     error: query_err
   });
@@ -237,9 +239,12 @@ $('#ap_pwd_view').on('click', function () {
 });
 
 $('#ap_refresh').on('click', function () {
-  show_spinner();
-  esp_get_ap()
-    .then(hide_spinner(500));
+  show_spinner().then(function () {
+    esp_get_ap()
+      .then(function () {
+        hide_spinner(500)
+      });
+  });
 });
 
 $('#ap_ch').on('change', function () {
@@ -305,9 +310,12 @@ $('#cron_edit').on('click', function () {
 });
 
 $('#cron_refresh').on('click', function () {
-  show_spinner();
-  esp_get_cron()
-    .then(hide_spinner(500));
+  show_spinner().then(function () {
+    esp_get_cron()
+      .then(function () {
+        hide_spinner(500);
+      });
+  });
 });
 
 $('#cron_save').on('click', function () {
@@ -321,7 +329,9 @@ $('#cron_save').on('click', function () {
     success: function () {
       alert("Cron status saved.");
       esp_get_cron()
-        .then(hide_spinner(500));
+        .then(function () {
+          hide_spinner(500);
+        });
     },
     error: query_err
   });
@@ -362,7 +372,9 @@ $('#mdns_edit').on('click', function () {
 $('#mdns_refresh').on('click', function () {
   show_spinner();
   esp_get_mdns()
-    .then(hide_spinner(500));
+    .then(function () {
+      hide_spinner(500);
+    });
 });
 
 $('#mdns_save').on('click', function () {
@@ -376,7 +388,9 @@ $('#mdns_save').on('click', function () {
     success: function () {
       alert("mDNS status saved.");
       esp_get_mdns()
-        .then(hide_spinner(500));
+        .then(function () {
+          hide_spinner(500);
+        });
     },
     error: query_err
   });
@@ -451,9 +465,12 @@ $('#datetime_edit').on('click', function () {
 });
 
 $('#datetime_refresh').on('click', function () {
-  show_spinner();
-  esp_get_datetime()
-    .then(hide_spinner(500));
+  show_spinner().then(function () {
+    esp_get_datetime()
+      .then(function () {
+        hide_spinner(500)
+      });
+  });
 });
 
 $('#datetime_save').on('click', function () {
@@ -467,7 +484,9 @@ $('#datetime_save').on('click', function () {
     success: function () {
       alert("Time & Date settings saved.");
       esp_get_datetime()
-        .then(hide_spinner(500));
+        .then(function () {
+          hide_spinner(500)
+        });
     },
     error: query_err
   });
@@ -487,7 +506,9 @@ $('#datetime_set').on('click', function () {
     success: function () {
       alert("Device Time & Date set to " + now.toUTCString());
       esp_get_datetime()
-        .then(hide_spinner(500));
+        .then(function () {
+          hide_spinner(500)
+        });
     },
     error: query_err
   });
@@ -565,9 +586,12 @@ $('#ota_check_version').change(function () {
 });
 
 $('#ota_refresh').on('click', function () {
-  show_spinner();
-  esp_get_ota()
-    .then(hide_spinner(500));
+  show_spinner().then(function () {
+    esp_get_ota()
+      .then(function () {
+        hide_spinner(500)
+      });
+  });
 });
 
 $('#ota_save').on('click', function () {
@@ -580,7 +604,9 @@ $('#ota_save').on('click', function () {
     success: function () {
       alert("OTA settings saved.");
       esp_get_ota()
-        .then(hide_spinner(500));
+        .then(function () {
+          hide_spinner(500)
+        });
     },
     error: query_err
   });
@@ -662,7 +688,9 @@ $('#diag_edit').on('click', function () {
 $('#diag_refresh').on('click', function () {
   show_spinner().then(function () {
     esp_get_diag()
-      .then(hide_spinner(500));
+      .then(function () {
+        hide_spinner(500)
+      });
   });
 });
 
@@ -677,7 +705,9 @@ $('#diag_save').on('click', function () {
       success: function () {
         alert("Diagnostic settings saved.");
         esp_get_diag()
-          .then(hide_spinner(500));
+          .then(function () {
+            hide_spinner(500)
+          });
       },
       error: query_err
     });

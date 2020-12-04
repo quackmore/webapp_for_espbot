@@ -20,9 +20,7 @@ function update_device_list() {
       ')"><i class="fa fa-trash-o"></i></button></td></tr>');
   }
   $("#device_list").append('</tbody>');
-  setTimeout(function () {
-    $('#awaiting').modal('hide');
-  }, 500);
+  hide_spinner(500);
 }
 
 function update_dev_idx(id) {
@@ -42,10 +40,11 @@ $('#dev_add').on('click', function () {
 });
 
 function dev_go(id) {
-  $('#awaiting').modal('show');
-  esp8266.ip = esp_devices[id].ip;
-  esp8266.url = "http://" + esp_devices[id].ip;
-  dev_verify();
+  show_spinner().then(function () {
+    esp8266.ip = esp_devices[id].ip;
+    esp8266.url = "http://" + esp_devices[id].ip;
+    dev_verify();
+  });
 }
 
 function dev_modify(id) {

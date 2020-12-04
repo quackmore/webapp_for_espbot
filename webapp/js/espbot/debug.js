@@ -5,9 +5,11 @@ $(document).ready(function () {
   esp_get_last_rst().then(function () {
     esp_get_meminfo().then(function () {
       esp_get_fsinfo().then(function () {
-        esp_get_file().then(hide_spinner());
-      })
-    })
+        esp_get_file().then(function () {
+          hide_spinner(500)
+        });
+      });
+    });
   });
 });
 
@@ -65,7 +67,9 @@ $('#last_rst_refresh').on('click', function () {
   show_spinner()
     .then(function () {
       esp_get_last_rst()
-        .then(hide_spinner(500));
+        .then(function () {
+          hide_spinner(500)
+        });
     });
 });
 
@@ -96,8 +100,10 @@ $('#meminfo_refresh').on('click', function () {
   show_spinner()
     .then(function () {
       esp_get_meminfo()
-        .then(hide_spinner(500));
-    });
+      .then(function () {
+        hide_spinner(500)
+      });
+  });
 });
 
 // SPIFFS
@@ -121,7 +127,9 @@ $('#fsinfo_refresh').on('click', function () {
   show_spinner()
     .then(function () {
       esp_get_fsinfo()
-        .then(hide_spinner(500));
+        .then(function () {
+          hide_spinner(500)
+        });
     });
 });
 
@@ -184,7 +192,9 @@ $('#file_refresh').on('click', function () {
   show_spinner()
     .then(function () {
       esp_get_file()
-        .then(hide_spinner(500));
+        .then(function () {
+          hide_spinner(500)
+        });
     });
 });
 
@@ -411,6 +421,8 @@ $('#memhexdump_refresh').on('click', function () {
   show_spinner()
     .then(function () {
       esp_get_memhexdump()
-        .then(hide_spinner(500));
+        .then(function () {
+          hide_spinner(500)
+        });
     });
 });

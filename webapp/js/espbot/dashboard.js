@@ -2,7 +2,9 @@
 
 $(document).ready(function () {
   esp_get_info()
-    .then(hide_spinner(500));
+    .then(function () {
+      hide_spinner(500);
+    });
 });
 
 // device info
@@ -44,7 +46,9 @@ $('#info_reset').on('click', function () {
   show_spinner()
     .then(function () {
       esp_get_info()
-        .then(hide_spinner(500));
+        .then(function () {
+          hide_spinner(500);
+        });
     });
 });
 

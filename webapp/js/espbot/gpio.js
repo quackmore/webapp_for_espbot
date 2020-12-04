@@ -121,7 +121,9 @@ function esp_set_gpio_level(ii, value) {
         data: JSON.stringify({ gpio_level: value }),
         success: function (data) {
           update_gpio(ii)
-            .then(hide_spinner(500));
+            .then(function () {
+              hide_spinner(500);
+            });
         },
         error: query_err
       });
@@ -147,7 +149,9 @@ function esp_set_gpio_cfg(ii, value) {
         data: JSON.stringify({ gpio_type: value }),
         success: function (data) {
           update_gpio(ii)
-            .then(hide_spinner(500));
+            .then(function () {
+              hide_spinner(500);
+            });
         },
         error: query_err
       });
