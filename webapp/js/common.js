@@ -29,29 +29,44 @@ $(document).ready(function () {
 // common functions for setting sidebar and load page content
 
 function update_sidebar() {
+  console.log("update sidebar");
+  console.log("device type " + esp8266.type);
   $('#app_type').text(esp8266.type);
   $('#dev-name').text(esp8266.name);
   switch (esp8266.type) {
     case "ESPBOT":
       $('#app_home').show();
-      //$('#th_history').hide();
+      $('#th_history').hide();
+      $('#th_ctrl_settings').hide();
       $('#dev_journal').show();
       $('#dev_settings').show();
       $('#dev_gpio').show();
       $('#dev_debug').show();
       $('#dev_list').show();
       $('#app_info').show();
-      return;
+      break;
+    case "THERMOSTAT":
+      $('#app_home').show();
+      $('#th_history').show();
+      $('#th_ctrl_settings').show();
+      $('#dev_journal').show();
+      $('#dev_settings').show();
+      $('#dev_gpio').hide();
+      $('#dev_debug').show();
+      $('#dev_list').show();
+      $('#app_info').show();
+      break;
     default:
       $('#app_home').hide();
-      //$('#th_history').hide();
+      $('#th_history').hide();
+      $('#th_ctrl_settings').hide();
       $('#dev_journal').hide();
       $('#dev_settings').hide();
       $('#dev_gpio').hide();
       $('#dev_debug').hide();
       $('#dev_list').show();
       $('#app_info').hide();
-      return;
+      break;
   }
 }
 
@@ -71,7 +86,25 @@ function goto(page) {
         default: page = "/html/devlist.html";
       }
       break;
-    case "dev_journal": page = "/html/espbot/events_journal.html"; break;
+    case "history":
+      switch (esp8266.type) {
+        case "THERMOSTAT": page = "/html/thermostat/history.html"; break;
+        default: page = "/html/devlist.html";
+      }
+      break;
+    case "ctrl_settings":
+      switch (esp8266.type) {
+        case "THERMOSTAT": page = "/html/thermostat/ctrl_settings.html"; break;
+        default: page = "/html/devlist.html";
+      }
+      break;
+    case "dev_journal":
+      switch (esp8266.type) {
+        case "ESPBOT": page = "/html/espbot/events_journal.html"; break;
+        case "THERMOSTAT": page = "/html/thermostat/events_journal.html"; break;
+        default: page = "/html/devlist.html";
+      }
+      break;
     case "dev_settings": page = "/html/espbot/device.html"; break;
     case "dev_gpio": page = "/html/espbot/gpio.html"; break;
     case "dev_debug": page = "/html/espbot/debug.html"; break;
@@ -192,6 +225,7 @@ function dev_replied(data) {
   esp8266.name = data.device_name;
   esp8266.type = data.app_name;
   esp8266.api = data.api_version;
+  console.log("device type " + data.app_name);
   update_sidebar();
   goto("app_home");
   $('#deviceModal').modal('hide');

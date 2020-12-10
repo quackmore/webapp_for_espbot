@@ -1,0 +1,59 @@
+<div>
+  <p></p>
+</div>
+<div class="card border-info">
+  <div class="card-body">
+    <div class="card-title">
+      <div class="row no-gutters">
+        <h5 class="card-title my-auto"><i class="fa fa-line-chart"></i> Control history</h5>
+        <button class="btn my-auto ml-auto" id="history_refresh">
+          <i class="fa fa-refresh"></i>
+        </button>
+      </div>
+    </div>
+    <canvas id="historyChart"></canvas>
+  </div>
+</div>
+</div>
+</div>
+<!--
+non sequential script loading could generate errors
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@0.7.7"></script>
+<script src="history.js"></script>
+-->
+
+<script>
+  jQuery.getScript("/chartjs/moment.min.js", function (responseText, textStatus, xhr) {
+    if (textStatus != "success") {
+      load_err(responseText, textStatus, xhr);
+    } else {
+      jQuery.getScript("/chartjs/Chart.min.js", function (responseText, textStatus, xhr) {
+        if (textStatus != "success") {
+          load_err(responseText, textStatus, xhr);
+        }
+        else {
+          jQuery.getScript("/chartjs/hammer.min.js", function (responseText, textStatus, xhr) {
+            if (textStatus != "success") {
+              load_err(responseText, textStatus, xhr);
+            } else {
+              jQuery.getScript("/chartjs/chartjs-plugin-zoom.min.js", function (responseText, textStatus, xhr) {
+                if (textStatus != "success") {
+                  load_err(responseText, textStatus, xhr);
+                } else {
+                  $.ajaxSetup({ cache: true });
+                  jQuery.getScript("/js/thermostat/history.js", function (responseText, textStatus, xhr) {
+                    if (textStatus != "success")
+                      load_err(responseText, textStatus, xhr);
+                  });
+                }
+              });
+            }
+          });
+        }
+      });
+    }
+  });
+</script>
