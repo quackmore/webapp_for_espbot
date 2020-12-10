@@ -233,6 +233,8 @@ function dev_replied(data) {
 
 function dev_didnt_reply() {
   alert("Device didn't answer...");
+  esp8266.type = "none";
+  update_sidebar();
   goto("dev_list");
   $('#deviceModal').modal('hide');
   $('#awaiting').modal('hide');
