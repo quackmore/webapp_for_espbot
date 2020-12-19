@@ -8,7 +8,7 @@
   <link rel="shortcut icon" type="image/png" href="/img/icons8-computer-support-50.png" />
   <meta name="description" content="">
   <meta name="author" content="">
-  <title>Espbot</title>
+  <title>Espot Web App</title>
 
   <!-- Bootstrap core CSS 
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> -->
@@ -36,13 +36,15 @@
     <div class="border-right side  bg-sidebar" id="sidebar-wrapper">
       <div class="sidebar-heading" id="app_type">WEBAPP</div>
       <div class="list-group list-group-flush border-right">
-        <!-- Home -->
+        <!-- Home (for all apps) -->
         <a id="app_home" href="javascript:goto('app_home')" class="list-group-item list-group-item-action bg-sidebar">Home</a>
         <!-- Thermostat -->
         <a id="th_history" href="javascript:goto('history')" class="list-group-item list-group-item-action bg-sidebar">Data history</a>
         <a id="th_ctrl_settings" href="javascript:goto('ctrl_settings')" class="list-group-item list-group-item-action bg-sidebar">Thermostat settings</a>
+        <!-- Smart timer -->
+        <a id="st_relay" href="javascript:goto('relay')" class="list-group-item list-group-item-action bg-sidebar">Contact list</a>
         <!-- Common to all espbot devices -->
-        <a id="dev_journal" href="javascript:goto('dev_journal')" class="list-group-item list-group-item-action bg-sidebar">Events journal</a>
+        <a id="dev_journal" href="javascript:goto('dev_journal')" class="list-group-item list-group-item-action bg-sidebar">Event journal</a>
         <a id="dev_settings" href="javascript:goto('dev_settings')" class="list-group-item list-group-item-action bg-sidebar">Device settings</a>
         <a id="dev_gpio" href="javascript:goto('dev_gpio')" class="list-group-item list-group-item-action bg-sidebar">Device GPIO</a>
         <a id="dev_debug" href="javascript:goto('dev_debug')" class="list-group-item list-group-item-action bg-sidebar">Device Debug</a>

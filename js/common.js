@@ -29,8 +29,6 @@ $(document).ready(function () {
 // common functions for setting sidebar and load page content
 
 function update_sidebar() {
-  console.log("update sidebar");
-  console.log("device type " + esp8266.type);
   $('#app_type').text(esp8266.type);
   $('#dev-name').text(esp8266.name);
   switch (esp8266.type) {
@@ -38,6 +36,7 @@ function update_sidebar() {
       $('#app_home').show();
       $('#th_history').hide();
       $('#th_ctrl_settings').hide();
+      $('#st_relay').hide();
       $('#dev_journal').show();
       $('#dev_settings').show();
       $('#dev_gpio').show();
@@ -49,9 +48,22 @@ function update_sidebar() {
       $('#app_home').show();
       $('#th_history').show();
       $('#th_ctrl_settings').show();
+      $('#st_relay').hide();
       $('#dev_journal').show();
       $('#dev_settings').show();
       $('#dev_gpio').hide();
+      $('#dev_debug').show();
+      $('#dev_list').show();
+      $('#app_info').show();
+      break;
+    case "SMART_TIMER":
+      $('#app_home').show();
+      $('#th_history').hide();
+      $('#th_ctrl_settings').hide();
+      $('#st_relay').show();
+      $('#dev_journal').show();
+      $('#dev_settings').show();
+      $('#dev_gpio').show();
       $('#dev_debug').show();
       $('#dev_list').show();
       $('#app_info').show();
@@ -60,6 +72,7 @@ function update_sidebar() {
       $('#app_home').hide();
       $('#th_history').hide();
       $('#th_ctrl_settings').hide();
+      $('#st_relay').hide();
       $('#dev_journal').hide();
       $('#dev_settings').hide();
       $('#dev_gpio').hide();
@@ -83,6 +96,7 @@ function goto(page) {
       switch (esp8266.type) {
         case "ESPBOT": page = "/html/espbot/home_espbot.html"; break;
         case "THERMOSTAT": page = "/html/thermostat/home_thermostat.html"; break;
+        case "SMART_TIMER": page = "/html/smart_timer/home_smart_timer.html"; break;
         default: page = "/html/devlist.html";
       }
       break;
@@ -98,10 +112,17 @@ function goto(page) {
         default: page = "/html/devlist.html";
       }
       break;
+    case "relay":
+      switch (esp8266.type) {
+        case "SMART_TIMER": page = "/html/smart_timer/relay.html"; break;
+        default: page = "/html/devlist.html";
+      }
+      break;
     case "dev_journal":
       switch (esp8266.type) {
         case "ESPBOT": page = "/html/espbot/events_journal.html"; break;
         case "THERMOSTAT": page = "/html/thermostat/events_journal.html"; break;
+        case "SMART_TIMER": page = "/html/smart_timer/events_journal.html"; break;
         default: page = "/html/devlist.html";
       }
       break;
@@ -112,6 +133,7 @@ function goto(page) {
       switch (esp8266.type) {
         case "ESPBOT": page = "/html/espbot/info_espbot.html"; break;
         case "THERMOSTAT": page = "/html/thermostat/info_thermostat.html"; break;
+        case "SMART_TIMER": page = "/html/smart_timer/info_smart_timer.html"; break;
         default: page = "/html/devlist.html";
       }
       break;
@@ -225,7 +247,6 @@ function dev_replied(data) {
   esp8266.name = data.device_name;
   esp8266.type = data.app_name;
   esp8266.api = data.api_version;
-  console.log("device type " + data.app_name);
   update_sidebar();
   goto("app_home");
   $('#deviceModal').modal('hide');
