@@ -25,7 +25,7 @@ function update_device_info(data) {
   $("#dev_name").val(data.device_name);
   $("#espbot_version").val(data.espbot_version);
   $("#api_version").val(data.api_version);
-  $("#library_version").val(data.library_version);
+  $("#drivers_version").val(data.drivers_version);
   $("#chip_id").val(data.chip_id);
   $("#sdk_version").val(data.sdk_version);
   $("#boot_version").val(data.boot_version);
@@ -68,4 +68,23 @@ $('#info_save').on('click', function () {
         error: query_err
       });
     });
+});
+
+$('#testStart').on('click', function () {
+  show_spinner();
+  return esp_query({
+    type: 'POST',
+    url: '/api/test',
+    dataType: 'json',
+    contentType: 'application/json',
+    data: JSON.stringify({ test_number: Number(($('#testId').val())), test_param: Number($('#testParam').val()) }),
+    success: function () {
+      alert("Test started...");
+      esp_get_info()
+        .then(function () {
+          hide_spinner(500)
+        });
+    },
+    error: query_err
+  });
 });
