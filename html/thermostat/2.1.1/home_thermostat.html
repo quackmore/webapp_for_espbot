@@ -34,4 +34,9 @@
     </div>
   </div>
 </div>
-<script src="/js/thermostat/home_thermostat.js"></script>
+<script>
+  jQuery.getScript("/js/thermostat/" + esp8266.api + "/home_thermostat.js", function (responseText, textStatus, xhr) {
+    if (textStatus != "success")
+      load_err(responseText, textStatus, xhr);
+  });
+</script>

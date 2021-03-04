@@ -44,7 +44,7 @@ non sequential script loading could generate errors
                   load_err(responseText, textStatus, xhr);
                 } else {
                   $.ajaxSetup({ cache: true });
-                  jQuery.getScript("/js/thermostat/history.js", function (responseText, textStatus, xhr) {
+                  jQuery.getScript("/js/thermostat/" + esp8266.api + "/history.js", function (responseText, textStatus, xhr) {
                     if (textStatus != "success")
                       load_err(responseText, textStatus, xhr);
                   });

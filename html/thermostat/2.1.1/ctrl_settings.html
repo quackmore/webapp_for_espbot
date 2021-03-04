@@ -379,5 +379,15 @@
   </div>
 </div>
 <!-- End of Modal -->
-<script src="/bootstrap-clockpicker/bootstrap-clockpicker.min.js"></script>
-<script src="/js/thermostat/ctrl_settings.js"></script>
+<script>
+  jQuery.getScript("/bootstrap-clockpicker/bootstrap-clockpicker.min.js", function (responseText, textStatus, xhr) {
+    if (textStatus != "success")
+      load_err(responseText, textStatus, xhr);
+    else {
+      jQuery.getScript("/js/thermostat/" + esp8266.api + "/ctrl_settings.js", function (responseText, textStatus, xhr) {
+        if (textStatus != "success")
+          load_err(responseText, textStatus, xhr);
+      });
+    }
+  });
+</script>

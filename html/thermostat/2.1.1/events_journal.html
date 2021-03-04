@@ -25,5 +25,15 @@
     </div>
   </div>
 </div>
-<script src="/js/thermostat/events_journal.js"></script>
-<script src="/js/thermostat/event_codes.js"></script>
+<script>
+  jQuery.getScript("/js/thermostat/" + esp8266.api + "/event_codes.js", function (responseText, textStatus, xhr) {
+    if (textStatus != "success")
+      load_err(responseText, textStatus, xhr);
+    else {
+      jQuery.getScript("/js/thermostat/" + esp8266.api + "/events_journal.js", function (responseText, textStatus, xhr) {
+        if (textStatus != "success")
+          load_err(responseText, textStatus, xhr);
+      });
+    }
+  });
+</script>
