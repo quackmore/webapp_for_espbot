@@ -2,6 +2,7 @@
 var esp8266 = {
   "name": "Webapp",
   "type": "WEBAPP",
+  "espbot_api": "2.2.0",
   "api": "2.2.0",
   "ip": "192.168.10.1",
   "url": "http://192.168.10.1",
@@ -94,46 +95,46 @@ function goto(page) {
   switch (page) {
     case "app_home":
       switch (esp8266.type) {
-        case "ESPBOT": page = "/html/espbot/home_espbot.html"; break;
-        case "THERMOSTAT": page = "/html/thermostat/home_thermostat.html"; break;
-        case "SMART_TIMER": page = "/html/smart_timer/home_smart_timer.html"; break;
+        case "ESPBOT": page = "/html/espbot/" + esp8266.api + "/home_espbot.html"; break;
+        case "THERMOSTAT": page = "/html/thermostat/" + esp8266.api + "/home_thermostat.html"; break;
+        case "SMART_TIMER": page = "/html/smart_timer/" + esp8266.api + "/home_smart_timer.html"; break;
         default: page = "/html/devlist.html";
       }
       break;
     case "history":
       switch (esp8266.type) {
-        case "THERMOSTAT": page = "/html/thermostat/history.html"; break;
+        case "THERMOSTAT": page = "/html/thermostat/" + esp8266.api + "/history.html"; break;
         default: page = "/html/devlist.html";
       }
       break;
     case "ctrl_settings":
       switch (esp8266.type) {
-        case "THERMOSTAT": page = "/html/thermostat/ctrl_settings.html"; break;
+        case "THERMOSTAT": page = "/html/thermostat/" + esp8266.api + "/ctrl_settings.html"; break;
         default: page = "/html/devlist.html";
       }
       break;
     case "relay":
       switch (esp8266.type) {
-        case "SMART_TIMER": page = "/html/smart_timer/relay.html"; break;
+        case "SMART_TIMER": page = "/html/smart_timer/" + esp8266.api + "/relay.html"; break;
         default: page = "/html/devlist.html";
       }
       break;
     case "dev_journal":
       switch (esp8266.type) {
-        case "ESPBOT": page = "/html/espbot/events_journal.html"; break;
-        case "THERMOSTAT": page = "/html/thermostat/events_journal.html"; break;
-        case "SMART_TIMER": page = "/html/smart_timer/events_journal.html"; break;
+        case "ESPBOT": page = "/html/espbot/" + esp8266.api + "/events_journal.html"; break;
+        case "THERMOSTAT": page = "/html/thermostat/" + esp8266.api + "/events_journal.html"; break;
+        case "SMART_TIMER": page = "/html/smart_timer/" + esp8266.api + "/events_journal.html"; break;
         default: page = "/html/devlist.html";
       }
       break;
-    case "dev_settings": page = "/html/espbot/device.html"; break;
-    case "dev_gpio": page = "/html/espbot/gpio.html"; break;
-    case "dev_debug": page = "/html/espbot/debug.html"; break;
+    case "dev_settings": page = "/html/espbot/" + esp8266.espbot_api + "/device.html"; break;
+    case "dev_gpio": page = "/html/espbot/" + esp8266.espbot_api + "/gpio.html"; break;
+    case "dev_debug": page = "/html/espbot/" + esp8266.espbot_api + "/debug.html"; break;
     case "app_info":
       switch (esp8266.type) {
-        case "ESPBOT": page = "/html/espbot/info_espbot.html"; break;
-        case "THERMOSTAT": page = "/html/thermostat/info_thermostat.html"; break;
-        case "SMART_TIMER": page = "/html/smart_timer/info_smart_timer.html"; break;
+        case "ESPBOT": page = "/html/espbot/" + esp8266.api + "/info_espbot.html"; break;
+        case "THERMOSTAT": page = "/html/thermostat/" + esp8266.api + "/info_thermostat.html"; break;
+        case "SMART_TIMER": page = "/html/smart_timer/" + esp8266.api + "/info_smart_timer.html"; break;
         default: page = "/html/devlist.html";
       }
       break;
@@ -169,21 +170,18 @@ function load_completed(responseText, textStatus, xhr) {
 function query_err(xhr, status) {
   if (status === "timeout") {
     alert("Request timeout!");
-    $('#awaiting').modal('hide');
+    hide_spinner(500);
   } else {
     if (xhr.responseText !== undefined) {
       var answer = JSON.parse(xhr.responseText);
       alert("" + answer.error.reason);
-      $('#awaiting').modal('hide');
+      hide_spinner(500);
     }
     else {
       alert("Device unreachable");
-      $('#awaiting').modal('hide');
+      hide_spinner(500);
     }
   }
-  // setTimeout(function () {
-  //   $('#awaiting').modal('hide');
-  // }, 500);
 }
 
 function esp_query(query) {
@@ -247,6 +245,40 @@ function dev_replied(data) {
   esp8266.name = data.device_name;
   esp8266.type = data.app_name;
   esp8266.api = data.api_version;
+  switch (esp8266.type) {
+    case "ESPBOT":
+      esp8266.espbot_api = esp8266.api;
+      break;
+    case "SMART_TIMER":
+      switch (esp8266.api) {
+        case "1.2.0":
+          esp8266.espbot_api = "2.2.0";
+          break;
+        case "1.3.0":
+          esp8266.espbot_api = "2.3.0";
+          break;
+        default:
+          esp8266.espbot_api = "2.2.0";
+          break;
+      }
+      break;
+    case "THERMOSTAT":
+      switch (esp8266.api) {
+        case "2.1.1":
+          esp8266.espbot_api = "2.2.0";
+          break;
+        case "2.2.0":
+          esp8266.espbot_api = "2.3.0";
+          break;
+        default:
+          esp8266.espbot_api = "2.2.0";
+          break;
+        }
+        break;
+    default:
+      esp8266.espbot_api = esp8266.api;
+      break;
+  }
   update_sidebar();
   goto("app_home");
   $('#deviceModal').modal('hide');
